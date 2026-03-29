@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AmritaBot | Open Source AI Agent Ecosystem</title>
+  <!-- Vue3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- 打字机动效库 (轻量级) -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#7B61FF',
+            dark: '#0F172A',
+            darker: '#090E1A',
+          },
+          fontFamily: { inter: ['Inter', 'sans-serif'] },
+        },
+      },
+      darkMode: 'class',
+    }
+  </script>
+
+  <!-- 自定义工具类 + 打字机光标样式 -->
+  <style type="textailwindcss">
+    @layer utilities {
+      .bg-gradient-tech { background: linear-gradient(135deg, #165DFF 0%, #7B61FF 100%); }
+      .card-hover { @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-primary/20; }
+      .glass { @apply bg-white/5 backdrop-blur-xl border border-white/10; }
+    }
+    /* 打字机光标样式（主色调科技蓝） */
+    .typed-cursor { color: #165DFF; font-size: inherit; font-weight: bold; }
+  </style>
+</head>
+
+<body class="bg-darker text-gray-200 font-inter dark" id="app">
+  <!-- 导航栏 -->
+  <nav class="sticky top-0 z-50 glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center gap-2">
+          <!-- 替换后的LOGO：50*50 + 白色背景 -->
+          <img 
+            src="https://core.amritabot.com/Amrita.png" 
+            alt="AmritaBot Logo"
+            class="w-[50px] h-[50px] bg-white rounded object-contain"
+          >
+          <h1 class="text-xl font-bold text-primary">AmritaBot</h1>
+        </div>
+        <div class="flex items-center gap-5 text-sm font-medium">
+          <a href="#projects" class="hover:text-primary transition-colors">Projects</a>
+          <a href="https://github.com/AmritaBot" target="_blank" class="hover:text-primary flex items-center gap-1">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 头部Banner + 打字机动效容器 -->
+  <header class="relative py-24 overflow-hidden">
+    <div class="absolute inset-0 bg-darker z-0"></div>
+    <div class="absolute inset-0 bg-gradient-tech opacity-10 z-10"></div>
+    <div class="max-w-5xl mx-auto px-6 text-center relative z-20">
+      <!-- 主标题打字机 -->
+      <h1 id="main-title" class="text-4xl md:text-5xl font-bold mb-4 text-white min-h-[70px]"></h1>
+      <!-- 副标题打字机 -->
+      <p id="sub-title" class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto min-h-[30px]"></p>
+    </div>
+  </header>
+
+  <!-- 项目列表 (Vue 循环渲染) -->
+  <section id="projects" class="py-16 bg-dark">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl font-bold text-white">Core Projects</h2>
+        <p class="text-gray-400 mt-2">Full-stack modular AI Agent ecosystem built for developers</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div 
+          v-for="(item, index) in projects" 
+          :key="index" 
+          class="glass rounded-xl p-6 card-hover"
+        >
+          <div class="flex justify-between items-start mb-4">
+            <h3 class="text-xl font-bold text-primary">{{ item.name }}</h3>
+            <span 
+              :class="item.available ? 'bg-green-500/15 text-green-400' : 'bg-yellow-500/15 text-yellow-400'"
+              class="text-xs px-2 py-1 rounded-full font-medium"
+            >
+              {{ item.status }}
+            </span>
+          </div>
+          <p class="text-gray-400 text-sm mb-5">{{ item.desc }}</p>
+          
+          <a 
+            v-if="item.available" 
+            :href="item.link" 
+            target="_blank"
+            class="text-primary text-sm font-medium flex items-center gap-1 hover:text-white transition-colors"
+          >
+            <i class="fa-brands fa-github"></i> View Repository
+          </a>
+          <div v-else class="text-gray-500 text-sm flex items-center gap-1">
+            <i class="fa-solid fa-hourglass-half"></i> Coming Soon
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 社区 -->
+  <section class="py-16 bg-darker border-t border-white/5">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h2 class="text-2xl font-bold text-white mb-7">Join Our Community</h2>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="https://t.me/+QRrsNnLUUSc1NzM1" target="_blank" class="px-5 py-2.5 bg-[#2CA5E0] text-white rounded-full flex items-center gap-2 hover:opacity-90">
+          <i class="fa-brands fa-telegram"></i> Telegram
+        </a>
+        <a href="https://qm.qq.com/cgi-bin/qm/qr?k=1006893368" target="_blank" class="px-5 py-2.5 bg-[#eb1923] text-white rounded-full flex items-center gap-2 hover:opacity-90">
+          <i class="fa-brands fa-qq"></i> QQ Group
+        </a>
+        <a href="https://discord.gg/byAD3sbjjj" target="_blank" class="px-5 py-2.5 bg-[#5865F2] text-white rounded-full flex items-center gap-2 hover:opacity-90">
+          <i class="fa-brands fa-discord"></i> Discord
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-darker py-8 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 text-center text-sm text-gray-400">
+      <p>© 2025 AmritaBot Open Source Organization. All rights reserved.</p>
+      <p class="mt-1">Building a smarter, lighter AI Agent world.</p>
+    </div>
+  </footer>
+
+  <!-- Vue 逻辑 + 打字机动效 -->
+  <script>
+    const { createApp } = Vue;
+    createApp({
+      data() {
+        return {
+          projects: [
+            { name: "AmritaBot", desc: "Full LLM chat agent solution based on NoneBot2, supporting multiple models and adapters.", status: "Available", available: true, link: "https://github.com/AmritaBot/AmritaBot" },
+            { name: "AmritaCore", desc: "High-performance Agent Core SDK with event system, concurrency support, and secure runtime.", status: "Available", available: true, link: "https://github.com/AmritaBot/AmritaCore" },
+            { name: "AmritaSense", desc: "Modern Agent Workflow Engine for visual orchestration and complex task planning.", status: "Under Construction", available: false },
+            { name: "AmritaAgent", desc: "Advanced autonomous agent orchestration, memory management, and multi-agent scheduling.", status: "Under Construction", available: false },
+            { name: "AmritaBase", desc: "Lightweight LLM infrastructure with tool encapsulation, vector memory, and base services.", status: "Under Construction", available: false }
+          ]
+        };
+      },
+      // 页面挂载完成后自动执行打字机效果
+      mounted() {
+        // 主标题打字机
+        new Typed('#main-title', {
+          strings: ['AmritaBot Open Source Ecosystem'],
+          typeSpeed: 60,    // 打字速度
+          backSpeed: 0,     // 无回删
+          loop: false,      // 不循环
+          showCursor: true, // 显示光标
+          cursorChar: '|',
+        });
+
+        // 副标题打字机（延迟执行，更有层次感）
+        setTimeout(() => {
+          new Typed('#sub-title', {
+            strings: ['A lightweight, high-performance AI Agent framework for building powerful, modular, and cloud-native intelligent agents.'],
+            typeSpeed: 40,
+            backSpeed: 0,
+            loop: false,
+            showCursor: false,
+          });
+        }, 1500);
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
