@@ -104,14 +104,24 @@
           </div>
           <p class="text-gray-400 text-sm mb-5">{{ item.desc }}</p>
           
-          <a 
-            v-if="item.available" 
-            :href="item.link" 
-            target="_blank"
-            class="text-primary text-sm font-medium flex items-center gap-1 hover:text-white transition-colors"
-          >
-            <i class="fa-brands fa-github"></i> View Repository
-          </a>
+          <div v-if="item.available" class="flex flex-wrap gap-2">
+            <a 
+              v-if="item.link"
+              :href="item.link" 
+              target="_blank"
+              class="text-primary text-sm font-medium flex items-center gap-1 hover:text-white transition-colors"
+            >
+              <i class="fa-brands fa-github"></i> Repository
+            </a>
+            <a 
+              v-if="item.docs"
+              :href="item.docs" 
+              target="_blank"
+              class="text-primary text-sm font-medium flex items-center gap-1 hover:text-white transition-colors"
+            >
+              <i class="fa-solid fa-book"></i> Docs
+            </a>
+          </div>
           <div v-else class="text-gray-500 text-sm flex items-center gap-1">
             <i class="fa-solid fa-hourglass-half"></i> Coming Soon
           </div>
@@ -153,11 +163,40 @@
       data() {
         return {
           projects: [
-            { name: "AmritaBot", desc: "Full LLM chat agent solution based on NoneBot2, supporting multiple models and adapters.", status: "Available", available: true, link: "https://github.com/AmritaBot/AmritaBot" },
-            { name: "AmritaCore", desc: "High-performance Agent Core SDK with event system, concurrency support, and secure runtime.", status: "Available", available: true, link: "https://github.com/AmritaBot/AmritaCore" },
-            { name: "AmritaSense", desc: "Modern Agent Workflow Engine for visual orchestration and complex task planning.", status: "Under Construction", available: false },
-            { name: "AmritaAgent", desc: "Advanced autonomous agent orchestration, memory management, and multi-agent scheduling.", status: "Under Construction", available: false },
-            { name: "AmritaBase", desc: "Lightweight LLM infrastructure with tool encapsulation, vector memory, and base services.", status: "Under Construction", available: false }
+            { 
+              name: "AmritaBot", 
+              desc: "Full LLM chat agent solution based on NoneBot2, supporting multiple models and adapters.", 
+              status: "Under Construction", 
+              available: false 
+            },
+            { 
+              name: "AmritaCore", 
+              desc: "High-performance Agent Core SDK with event system, concurrency support, and secure runtime.", 
+              status: "Available", 
+              available: true, 
+              link: "https://github.com/AmritaBot/AmritaCore",
+              docs: "https://core.amritabot.com"
+            },
+            { 
+              name: "AmritaSense", 
+              desc: "A groundbreaking general-purpose workflow orchestration engine that replaces graph models with native instruction-set architecture (ISA), featuring GOTO/CALL semantics and precise interrupt control.", 
+              status: "Available", 
+              available: true, 
+              link: "https://github.com/AmritaBot/AmritaSense",
+              docs: "https://sense.amritabot.com"
+            },
+            { 
+              name: "AmritaAgent", 
+              desc: "Advanced autonomous agent orchestration, memory management, and multi-agent scheduling.", 
+              status: "Under Construction", 
+              available: false 
+            },
+            { 
+              name: "AmritaBase", 
+              desc: "Lightweight LLM infrastructure with tool encapsulation, vector memory, and base services.", 
+              status: "Under Construction", 
+              available: false 
+            }
           ]
         };
       },
@@ -166,10 +205,10 @@
         // 主标题打字机
         new Typed('#main-title', {
           strings: ['AmritaBot Open Source Ecosystem'],
-          typeSpeed: 60,    // 打字速度
-          backSpeed: 0,     // 无回删
-          loop: false,      // 不循环
-          showCursor: true, // 显示光标
+          typeSpeed: 60,
+          backSpeed: 0,
+          loop: false,
+          showCursor: true,
           cursorChar: '|',
         });
 
