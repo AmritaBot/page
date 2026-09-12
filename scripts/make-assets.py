@@ -6,13 +6,16 @@ Source artwork:
     (transparent 2048x2048 PNG, dark line art)
 
 The outputs live in public/ and are committed, so a normal `npm run build`
-never needs to run this. Re-run it only when the upstream logo changes:
+never needs to run this. Re-run it only when the upstream logo or the
+wordmark copy changes:
 
     curl -sSLo /tmp/Amrita-nobg.png \\
       https://raw.githubusercontent.com/AmritaBot/AmritaBot/main/logo/Amrita-nobg.png
     python3 scripts/make-assets.py /tmp/Amrita-nobg.png
 
-Requires Pillow and DejaVu fonts (both present on the build host).
+Fonts: DejaVu for the Latin wordmark, Droid Sans Fallback for the Chinese
+tagline on the OG card (the shipped Inter subset is latin-only). Both are
+present on the build host; neither is embedded in the page.
 """
 import sys
 
@@ -22,6 +25,7 @@ SRC = sys.argv[1] if len(sys.argv) > 1 else "/tmp/assets/Amrita-nobg.png"
 OUT = "public"
 BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 REG = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+CJK = "/usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf"
 
 DARK = (9, 14, 26)
 PRIMARY = (22, 93, 255)
@@ -53,7 +57,10 @@ def square(img, size, bg, margin=0.07):
 
 def centered_text(draw, text, font, y, fill, width=1200):
     box = draw.textbbox((0, 0), text, font=font)
-    draw.text(((width - (box[2] - box[0])) / 2 - box[0], y), text, font=font, fill=fill)
+    w = box[2] - box[0]
+    if w > width - 80:
+        raise ValueError(f"text overflows the canvas: {w}px for {text!r}")
+    draw.text(((width - w) / 2 - box[0], y), text, font=font, fill=fill)
 
 
 def og_image(art):
@@ -82,16 +89,14 @@ def og_image(art):
     bg = Image.composite(Image.new("RGB", (W, H), (5, 8, 16)), bg, shade.resize((W, H)))
 
     logo = art.resize((250, round(250 * art.height / art.width)), Image.LANCZOS)
-    bg.paste(logo, ((W - logo.width) // 2, 62), logo)
+    bg.paste(logo, ((W - logo.width) // 2, 58), logo)
 
     draw = ImageDraw.Draw(bg)
-    centered_text(draw, "AmritaBot", ImageFont.truetype(BOLD, 92), 348, (255, 255, 255))
-    centered_text(
-        draw, "Open Source AI Agent Ecosystem", ImageFont.truetype(REG, 36), 462, (170, 184, 205)
-    )
+    centered_text(draw, "AmritaBot", ImageFont.truetype(BOLD, 92), 340, (255, 255, 255))
+    centered_text(draw, "开源 AI Agent 生态", ImageFont.truetype(CJK, 42), 456, (170, 184, 205))
     centered_text(
         draw,
-        "AmritaBot   ·   AmritaCore   ·   AmritaSense",
+        "AmritaBot  ·  AmritaCore  ·  AmritaSense",
         ImageFont.truetype(REG, 26),
         524,
         (110, 125, 150),

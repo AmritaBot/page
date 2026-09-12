@@ -38,7 +38,7 @@ const jsonLd = {
       url: `${site.url}/`,
       name: site.title,
       description: site.description,
-      inLanguage: 'en',
+      inLanguage: 'zh-CN',
       publisher: { '@id': `${site.url}/#organization` },
     },
   ],
@@ -46,7 +46,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="zh-CN" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -73,7 +73,7 @@ const jsonLd = {
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="zh_CN" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -85,10 +85,10 @@ const jsonLd = {
 
   <body class="min-h-screen bg-darker font-inter text-gray-200 antialiased">
     <a
-      href="#projects"
+      href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded focus:bg-primary focus:px-4 focus:py-2 focus:text-white"
     >
-      Skip to content
+      跳转到主要内容
     </a>
     <slot />
   </body>

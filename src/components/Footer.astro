@@ -1,12 +1,88 @@
 ---
-import { site } from '../data/projects';
+import Icon from './Icon.astro';
+import { site, socials, docSites } from '../data/projects';
 
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-white/5 bg-darker py-8">
-  <div class="mx-auto max-w-7xl px-6 text-center text-sm text-gray-400">
-    <p>© {year} {site.org}. All rights reserved.</p>
-    <p class="mt-1">Project.Amrita — building a smarter, lighter AI Agent world.</p>
+<footer class="border-t border-white/5 bg-darker py-12">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="flex flex-col gap-10 md:flex-row md:justify-between">
+      <div>
+        <div class="flex items-center gap-2">
+          <img
+            src="/logo.png"
+            alt=""
+            width="40"
+            height="40"
+            class="h-10 w-10 rounded bg-white object-contain"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="text-lg font-bold text-primary">{site.name}</span>
+        </div>
+        <p class="mt-4 max-w-xs text-sm text-gray-400">
+          Project.Amrita —— 构建更智能、更轻量的 AI Agent 世界。
+        </p>
+      </div>
+
+      <div class="flex gap-16">
+        <div>
+          <h3 class="mb-3 text-sm font-semibold text-white">文档</h3>
+          <ul class="space-y-2 text-sm text-gray-400">
+            {
+              docSites.map((d) => (
+                <li>
+                  <a
+                    href={d.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="transition-colors hover:text-primary"
+                  >
+                    {d.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="mb-3 text-sm font-semibold text-white">社区</h3>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li>
+              <a
+                href={site.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-1.5 transition-colors hover:text-primary"
+              >
+                <Icon name="github" class="h-3.5 w-3.5" />
+                GitHub
+              </a>
+            </li>
+            {
+              socials.map((s) => (
+                <li>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center gap-1.5 transition-colors hover:text-primary"
+                  >
+                    <Icon name={s.icon} class="h-3.5 w-3.5" />
+                    {s.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t border-white/5 pt-6 text-center text-sm text-gray-500">
+      <p>© {year} {site.org}. 保留所有权利。</p>
+    </div>
   </div>
 </footer>

@@ -1,7 +1,8 @@
 {
-  "name": "AmritaBot — Open Source AI Agent Ecosystem",
+  "name": "AmritaBot — 开源 AI Agent 生态",
   "short_name": "AmritaBot",
-  "description": "Project.Amrita is an open-source Agent ecosystem: an Agentic chat bot built on NoneBot2, a vendor-agnostic Agent runtime, and a next-generation workflow engine.",
+  "description": "Project.Amrita 是一套开源 Agent 生态：基于 NoneBot2 的 Agentic 聊天机器人、厂商无关的 Agent 运行时，以及新一代工作流引擎。",
+  "lang": "zh-CN",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
