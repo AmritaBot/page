@@ -1,0 +1,75 @@
+---
+import { site } from '../data/projects';
+---
+
+<header class="relative overflow-hidden py-24">
+  <div class="absolute inset-0 z-0 bg-darker"></div>
+  <div class="bg-gradient-tech absolute inset-0 z-10 opacity-10"></div>
+
+  <div class="relative z-20 mx-auto max-w-5xl px-6 text-center">
+    <h1 class="mb-4 min-h-[70px] text-4xl font-bold text-white md:text-5xl">
+      <span
+        class="js-typed"
+        data-typed={site.tagline}
+        data-typed-speed="60"
+        data-typed-cursor="true">{site.tagline}</span
+      >
+    </h1>
+
+    <p class="mx-auto min-h-[30px] max-w-2xl text-lg text-gray-300 md:text-xl">
+      <span class="js-typed" data-typed={site.subtitle} data-typed-speed="40" data-typed-delay="1500"
+        >{site.subtitle}</span
+      >
+    </p>
+  </div>
+</header>
+
+<script>
+  /*
+   * Typewriter effect, hand-rolled (~30 lines) to replace the Typed.js CDN
+   * dependency. The full strings are rendered server-side above, so the
+   * headings exist in the HTML source and for no-JS visitors; this script only
+   * replays them character by character.
+   */
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduceMotion) {
+    const type = (el: HTMLElement) => {
+      const text = el.dataset.typed ?? '';
+      const speed = Number(el.dataset.typedSpeed ?? 55);
+      const wantsCursor = el.dataset.typedCursor === 'true';
+
+      let cursor: HTMLSpanElement | null = null;
+      if (wantsCursor) {
+        cursor = document.createElement('span');
+        cursor.className = 'typed-cursor';
+        cursor.setAttribute('aria-hidden', 'true');
+        cursor.textContent = '|';
+        el.after(cursor);
+      }
+
+      el.textContent = '';
+      let i = 0;
+
+      const step = () => {
+        if (i >= text.length) {
+          cursor?.remove();
+          return;
+        }
+        el.textContent += text.charAt(i++);
+        window.setTimeout(step, speed);
+      };
+
+      step();
+    };
+
+    document.querySelectorAll<HTMLElement>('.js-typed').forEach((el) => {
+      const delay = Number(el.dataset.typedDelay ?? 0);
+      if (delay > 0) {
+        window.setTimeout(() => type(el), delay);
+      } else {
+        type(el);
+      }
+    });
+  }
+</script>

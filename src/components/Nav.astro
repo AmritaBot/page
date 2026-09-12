@@ -1,0 +1,36 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/projects';
+---
+
+<nav class="glass sticky top-0 z-50">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 justify-between">
+      <a href="/" class="flex items-center gap-2" aria-label={`${site.name} — home`}>
+        <img
+          src="/logo.png"
+          alt=""
+          width="50"
+          height="50"
+          class="h-[50px] w-[50px] rounded bg-white object-contain"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <span class="text-xl font-bold text-primary">{site.name}</span>
+      </a>
+
+      <div class="flex items-center gap-5 text-sm font-medium">
+        <a href="#projects" class="transition-colors hover:text-primary">Projects</a>
+        <a
+          href={site.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-1 transition-colors hover:text-primary"
+        >
+          <Icon name="github" class="h-4 w-4" />
+          GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

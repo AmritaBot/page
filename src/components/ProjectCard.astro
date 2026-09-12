@@ -1,0 +1,63 @@
+---
+import Icon from './Icon.astro';
+import type { Project, ProjectStatus } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+
+const badgeStyles: Record<ProjectStatus, { label: string; cls: string }> = {
+  available: { label: 'Available', cls: 'bg-green-500/15 text-green-400' },
+  'in-development': { label: 'In Development', cls: 'bg-yellow-500/15 text-yellow-400' },
+  planned: { label: 'Planned', cls: 'bg-slate-500/15 text-slate-400' },
+};
+
+const badge = badgeStyles[project.status];
+---
+
+<article class="glass card-hover flex flex-col rounded-xl p-6">
+  <div class="mb-3 flex items-center justify-between gap-3">
+    <span class="text-xs font-medium uppercase tracking-wider text-gray-500">{project.kind}</span>
+    <span class={`shrink-0 rounded-full px-2 py-1 text-xs font-medium ${badge.cls}`}>
+      {badge.label}
+    </span>
+  </div>
+
+  <h3 class="text-xl font-bold text-primary">
+    {project.name}
+    {project.version && <span class="ml-2 text-sm font-normal text-gray-500">v{project.version}</span>}
+  </h3>
+
+  <p class="mb-5 mt-3 flex-1 text-sm text-gray-400">{project.desc}</p>
+
+  <div class="flex flex-wrap gap-4">
+    {
+      project.link && (
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:text-white"
+        >
+          <Icon name="github" class="h-4 w-4" />
+          Repository
+        </a>
+      )
+    }
+    {
+      project.docs && (
+        <a
+          href={project.docs}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:text-white"
+        >
+          <Icon name="book" class="h-4 w-4" />
+          Docs
+        </a>
+      )
+    }
+  </div>
+</article>

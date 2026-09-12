@@ -1,0 +1,21 @@
+{
+  "name": "amritabot-page",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Landing page for Project.Amrita / AmritaBot (www.amritabot.com)",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^5.18.2",
+    "tailwindcss": "^4.3.3"
+  }
+}

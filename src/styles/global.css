@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Self-hosted Inter (variable, wght axis).
+
+   Only the `latin` subset is shipped — the rest of the family is dead
+   weight for an English-language landing page. The file is copied from
+   @fontsource-variable/inter; see public/fonts/LICENSE-Inter.txt (OFL).
+
+   The old page declared `font-family: "Inter", ...` but never loaded
+   Inter at all, so every visitor silently got their system sans.
+   ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/inter-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+/* ------------------------------------------------------------------
+   Design tokens — previously the inline `tailwind.config` object in
+   the single-file page, now compiled at build time.
+   ------------------------------------------------------------------ */
+@theme {
+  --color-primary: #165dff;
+  --color-secondary: #7b61ff;
+  --color-dark: #0f172a;
+  --color-darker: #090e1a;
+
+  --font-inter: "Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-darker font-inter text-gray-200 antialiased;
+  }
+
+  /* The old page had no visible focus styling at all. */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Custom utilities.
+
+   NOTE: in the old single-file page the <style> tag was declared as
+   `type="textailwindcss"` (a missing slash), so the browser discarded
+   the entire block and none of the three classes below ever applied.
+   ------------------------------------------------------------------ */
+@utility bg-gradient-tech {
+  background-image: linear-gradient(135deg, #165dff 0%, #7b61ff 100%);
+}
+
+@utility card-hover {
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+
+  &:hover {
+    transform: scale(1.02);
+    border-color: rgb(22 93 255 / 0.35);
+    box-shadow: 0 18px 45px -18px rgb(22 93 255 / 0.55);
+  }
+}
+
+@utility glass {
+  background-color: rgb(255 255 255 / 0.05);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+}
+
+/* Typewriter cursor, kept in the primary tech blue. */
+.typed-cursor {
+  color: #165dff;
+  font-size: inherit;
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .card-hover {
+    transition: none;
+  }
+
+  .card-hover:hover {
+    transform: none;
+  }
+}

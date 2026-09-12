@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+import { socials } from '../data/projects';
+---
+
+<section class="border-t border-white/5 bg-darker py-16">
+  <div class="mx-auto max-w-5xl px-6 text-center">
+    <h2 class="mb-7 text-2xl font-bold text-white">Join Our Community</h2>
+
+    <div class="flex flex-wrap justify-center gap-4">
+      {
+        socials.map((s) => (
+          <a
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={`flex items-center gap-2 rounded-full px-5 py-2.5 text-white transition-opacity hover:opacity-90 ${s.bg}`}
+          >
+            <Icon name={s.icon} class="h-4 w-4" />
+            {s.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
