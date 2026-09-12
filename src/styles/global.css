@@ -25,9 +25,13 @@
    Design tokens — previously the inline `tailwind.config` object in
    the single-file page, now compiled at build time.
    ------------------------------------------------------------------ */
-@theme {
-  --color-primary: #165dff;
-  --color-secondary: #7b61ff;
+@theme static {
+  /* 品牌色取自 AmritaSense 文档站深色主题的 brand ramp：
+     brand-1 #8db4d8（链接 / 强调文字）、brand-2 #5a8ebf（渐变深端）、
+     brand-3 #2a5f94（实心填充，配白字）。 */
+  --color-primary: #8db4d8;
+  --color-secondary: #5a8ebf;
+  --color-primary-strong: #2a5f94;
   --color-dark: #0f172a;
   --color-darker: #090e1a;
 
@@ -59,7 +63,7 @@
    the entire block and none of the three classes below ever applied.
    ------------------------------------------------------------------ */
 @utility bg-gradient-tech {
-  background-image: linear-gradient(135deg, #165dff 0%, #7b61ff 100%);
+  background-image: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
 }
 
 @utility card-hover {
@@ -67,8 +71,8 @@
 
   &:hover {
     transform: scale(1.02);
-    border-color: rgb(22 93 255 / 0.35);
-    box-shadow: 0 18px 45px -18px rgb(22 93 255 / 0.55);
+    border-color: rgb(141 180 216 / 0.35);
+    box-shadow: 0 18px 45px -18px rgb(141 180 216 / 0.5);
   }
 }
 
@@ -79,9 +83,9 @@
   backdrop-filter: blur(20px) saturate(160%);
 }
 
-/* Typewriter cursor, kept in the primary tech blue. */
+/* Typewriter cursor, in the AmritaSense brand blue. */
 .typed-cursor {
-  color: #165dff;
+  color: var(--color-primary);
   font-size: inherit;
   font-weight: 700;
 }

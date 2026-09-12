@@ -28,8 +28,8 @@ REG = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 CJK = "/usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf"
 
 DARK = (9, 14, 26)
-PRIMARY = (22, 93, 255)
-SECONDARY = (123, 97, 255)
+PRIMARY = (141, 180, 216)   # #8db4d8
+SECONDARY = (90, 142, 191)  # #5a8ebf
 
 
 def load_art():
